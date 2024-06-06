@@ -42,7 +42,7 @@ jobs:
 
       - name: Configuration
         id: config
-        uses: litario/gh-trusted-builds-workflows/.github/actions/config@main
+        uses: liatrio/gh-trusted-builds-workflows/.github/actions/config@main
         with:
           environment: ${{ inputs.environment }}
 
