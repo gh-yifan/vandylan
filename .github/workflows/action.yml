@@ -40,6 +40,12 @@ jobs:
           path: gh-trusted-builds-workflows
           persist-credentials: false
 
+      - name: Configuration
+        id: config
+        uses: litario/gh-trusted-builds-workflows/.github/actions/config@main
+        with:
+          environment: ${{ inputs.environment }}
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3
         with:
