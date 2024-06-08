@@ -58,6 +58,6 @@ jobs:
         id: attest
         with:
           subject-name: ghcr.io/${{ github.repository }}
-          subject-digest: ${{ needs.sign.outputs.digest }}
+          subject-digest: sha256:b167ac89ab09a52c7d25c90d33458946075cf9aac9b5f72f7c6aeeca6935a460
           push-to-registry: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
