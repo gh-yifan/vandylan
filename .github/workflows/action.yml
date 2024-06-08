@@ -53,11 +53,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build and push image
+        id: push-step
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository }}:static
+          context: .
+          file : Dockerfile.static
+
       - name: Attest
         uses: actions/attest-build-provenance@v1
         id: attest
         with:
           subject-name: ghcr.io/${{ github.repository }}
-          subject-digest: sha256:b167ac89ab09a52c7d25c90d33458946075cf9aac9b5f72f7c6aeeca6935a460
+          subject-digest: ${{ steps.push-step.outputs.digest }}
           push-to-registry: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
