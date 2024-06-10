@@ -9,6 +9,7 @@ jobs:
       id-token: write
       packages: write
       contents: write
+      attestations: write
 
     steps:
       - name: Checkout repository
