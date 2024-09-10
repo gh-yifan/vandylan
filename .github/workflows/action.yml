@@ -23,16 +23,30 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push image
-        id: push-step
+        id: push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
           push: true
-          tags: ghcr.io/${{ github.repository }}:static
+          tags: ghcr.io/${{ github.repository }}:latest
           context: .
           file : Dockerfile.static
 
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          image: ghcr.io/${{ github.repository }}:latest
+          format: 'spdx'
+          output-file : 'sbom.spdx.json'
+          
       - name: Attest image
-        uses: actions/attest-build-provenance@v1.0.0
+        uses: actions/attest-sbom@v1
+        id: attest
         with:
           subject-name: ghcr.io/${{ github.repository }}
-          subject-digest: ${{ steps.push-step.outputs.digest }}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          sbom-path: 'sbom.sdpx.json'
+          push-to-registry: true
+
+
+
+
