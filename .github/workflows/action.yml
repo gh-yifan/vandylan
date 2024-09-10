@@ -35,7 +35,7 @@ jobs:
         uses: anchore/sbom-action@v0
         with:
           image: ghcr.io/${{ github.repository }}:latest
-          format: 'spdx'
+          format: 'spdx-json'
           output-file : 'sbom.spdx.json'
           
       - name: Attest image
