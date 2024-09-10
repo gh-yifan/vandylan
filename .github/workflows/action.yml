@@ -44,7 +44,7 @@ jobs:
         with:
           subject-name: ghcr.io/${{ github.repository }}
           subject-digest: ${{ steps.push.outputs.digest }}
-          sbom-path: 'sbom.sdpx.json'
+          sbom-path: 'sbom.spdx.json'
           push-to-registry: true
 
 
